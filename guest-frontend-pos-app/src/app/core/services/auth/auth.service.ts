@@ -49,7 +49,12 @@ export class AuthService {
           sameSite: "Strict",
           domain: environment.DOMAIN_COOKIE
         });
-        this._appService.onGetUser(dataBody.data.user_id);
+        let logged = this.cookieService.get("userId");
+        if (logged) {
+          this._appService.onGetUser(logged).subscribe((res: any) => {
+            this._appService.setAuthUserSubject(res);
+          });
+        }
         this.setErrorMessage(null);
         this.router.navigate(['/']);
       } else {

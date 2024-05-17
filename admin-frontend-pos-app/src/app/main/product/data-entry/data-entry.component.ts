@@ -154,7 +154,7 @@ export class DataEntryComponent implements OnInit {
         this.content = res.body.data.content;
 
         for (let i = 0; i < res.body.data.images.length; i++) {
-          this.urls.push(res.body.data.images[i].url + res.body.data.images[i].fileName);
+          this.urls.push(environment.MINIO_URL + res.body.data.images[i].fileName);
           this.orderedFiles.push(
             new File(
               [new Blob([res.body.data.images[i].fileName], {type: 'text/plain'})],
@@ -215,7 +215,7 @@ export class UploadAdapter {
         console.log(file)
         this.imageService.onUpload(formData).subscribe((res: any) => {
           if (res && res.statusCodeValue === 200) {
-            const temporaryImagePath = res.body.data;
+            const temporaryImagePath = environment.MINIO_URL + res.body.data;
             resolve({default: temporaryImagePath});
           }
         })

@@ -65,7 +65,7 @@ public class UserService {
             dataMap.put("lastname", user.getLastname());
             dataMap.put("email", user.getEmail());
             if (user.getAvatar() != null) {
-                dataMap.put("avatar", "/" + user.getAvatar());
+                dataMap.put("avatar", user.getAvatar());
             } else {
                 dataMap.put("avatar", null);
             }

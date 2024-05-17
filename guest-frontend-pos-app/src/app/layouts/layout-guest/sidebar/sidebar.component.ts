@@ -5,7 +5,7 @@ import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbar} from "@angular/material/toolbar";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
@@ -28,7 +28,7 @@ import {NgIf} from "@angular/common";
     MatFormField,
     MatSelect,
     MatOption,
-    MatButton,
+    MatButton, MatIconModule,
     MatSidenavModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatToolbar, MatIcon, MatListItem, MatList, MatDivider, RouterLink, RouterOutlet, MatMenu, MatMenuItem, MatButtonModule, MatMenuModule, NgIf
   ],
   templateUrl: './sidebar.component.html',
@@ -49,9 +49,17 @@ export class SidebarComponent implements OnInit {
     this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]).subscribe(result => {
       this.isDesktop = window.innerWidth >= 1024;
     });
+
+    this._appService.getAuthUserSubject().subscribe((data: any) => {
+      this.isAdmin = this.permissions.length > 0;
+      this.isLogin = true;
+      this.loading = false;
+      console.log(this.permissions.length)
+    });
   }
 
   getUser() {
+    this.loading = true; // Trước khi lấy dữ liệu, đặt trạng thái loading là true
     let logged = this.cookieService.get("userId");
     if (logged) {
       this._appService.onGetUser(logged).subscribe((res: any) => {
@@ -62,7 +70,7 @@ export class SidebarComponent implements OnInit {
             });
           });
         }
-        this.isAdmin = this.permissions.length;
+        this.isAdmin = this.permissions.length > 0;
         this.isLogin = true;
         this.loading = false;
       });

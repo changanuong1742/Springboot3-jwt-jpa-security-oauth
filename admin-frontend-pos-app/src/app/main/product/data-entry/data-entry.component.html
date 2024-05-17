@@ -40,7 +40,7 @@
       <ol class="list-group list-group-numbered mb-4">
         <li class="list-group-item d-flex align-items-center"
             *ngFor="let url of urls; let i = index">
-          <img [src]="environment.MINIO_URL + url" class="image-product rounded-1 ms-2">
+          <img [src]="url" class="image-product rounded-1 ms-2">
           <span class="ms-2">{{ splitTextFile(url) }}</span>
 
           <button class="bg-transparent border-0 ms-auto" (click)="removeFile(i)">
