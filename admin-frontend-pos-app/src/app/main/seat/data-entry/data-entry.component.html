@@ -1,0 +1,57 @@
+<form [formGroup]="formData" class="form-data p-4">
+  <mat-form-field appearance="fill" class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter name..." formControlName="name">
+    <mat-error *ngIf="formData.get('name')?.hasError('required')">
+      Name is required
+    </mat-error>
+    <mat-error *ngIf="formData.get('name')?.hasError('unique')">
+      Table name already exists
+    </mat-error>
+  </mat-form-field>
+
+  @if (listAction.edit || listAction.create) {
+    <div class="example-button-row mt-2">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+  }
+
+
+  <p class="mt-2 p-2 order_list_label mb-0">Order list</p>
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let ol of orders">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">#{{ ol.id }}</div>
+        <div class="fw-bold">Status:
+          @if (ol.status === 'PROCESSING') {
+            <span class="badge rounded-pill bg-primary">Processing</span>
+          } @else if (ol.status === 'PENDING') {
+            <span class="badge rounded-pill bg-warning">Pending</span>
+          } @else if (ol.status === 'DONE') {
+            <span class="badge rounded-pill bg-success">Done</span>
+          } @else {
+            <span class="badge rounded-pill bg-success">Cancel</span>
+          }
+        </div>
+        <div class="fw-bold">Payment:
+          @if (ol.payment_status === 'HOLD') {
+            <span class="badge rounded-pill bg-warning">Hold</span>
+          } @else if (ol.payment_status === 'SUCCESS') {
+            <span class="badge rounded-pill bg-success">Success</span>
+          } @else {
+            <span class="badge rounded-pill bg-danger">Fail</span>
+          }
+        </div>
+        <div class="fw-bold">Created at:
+          <span>{{ formatTime(ol.createdAt) }}</span>
+        </div>
+      </div>
+      <div class="ms-auto">
+        <button mat-flat-button color="primary" [routerLink]="['/admin/order/edit']" [queryParams]="{ id: ol.id }">
+          View
+        </button>
+      </div>
+    </li>
+  </ol>
+
+</form>

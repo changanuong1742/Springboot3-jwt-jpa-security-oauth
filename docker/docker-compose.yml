@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-reverse-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - guest-frontend-pos
+      - admin-frontend-pos
+    networks:
+      - my-network
+
+  guest-frontend-pos:
+    build:
+      context: ../guest-frontend-pos-app
+      dockerfile: Dockerfile
+    container_name: guest-frontend-pos-app
+    image: guest-frontend-pos-app:latest
+    restart: always
+    networks:
+      - my-network
+
+  admin-frontend-pos:
+    build:
+      context: ../admin-frontend-pos-app
+      dockerfile: Dockerfile
+    container_name: admin-frontend-pos-app
+    image: admin-frontend-pos-app:latest
+    restart: always
+    networks:
+      - my-network
+
+  postgres:
+    image: postgres:latest
+    container_name: pos-app-db
+    environment:
+      POSTGRES_DB: pos-app-postgres
+      POSTGRES_USER: changanuong1742
+      POSTGRES_PASSWORD: chanvkl205
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+  api-spring:
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    image: api-spring-app:latest
+    container_name: api-spring-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/pos-app-postgres
+      SPRING_DATASOURCE_USERNAME: changanuong1742
+      SPRING_DATASOURCE_PASSWORD: chanvkl205
+      MINIO_URL: http://minio:9000/
+      MINIO_ACCESS_KEY: EfkJnF3emHOstb45ErWk
+      MINIO_SECRET_KEY: Q6menNGqUIpXpfnoUVaqDKd9gXasOmiNd4KMia9s
+    ports:
+      - "9898:9898"
+    networks:
+      - my-network
+    depends_on:
+      - postgres
+      - minio
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"
+    networks:
+      - my-network
+
+volumes:
+  minio-data:
+
+networks:
+  my-network:
+    driver: bridge

@@ -1,0 +1,32 @@
+.upload-thumbnail {
+  .preview-box {
+    width: 120px;
+
+    img.preview {
+      height: 120px;
+      width: 120px;
+      border-radius: 16px;
+    }
+
+    img.icon-action {
+      height: 24px;
+      width: 24px;
+    }
+
+    div.delete-action{
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    label.edit-action {
+      height: 24px;
+      width: 24px;
+      margin-right: 4px;
+      margin-top: 4px;
+
+      input {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<mat-drawer-container class="example-container" [hasBackdrop]="!isDesktop">
+  <mat-drawer #drawer [mode]="isDesktop ? 'side' : 'over'" [opened]="!!isDesktop" class="d-lg-none">
+    <mat-list>
+      <mat-list-item [routerLink]="">Introduce</mat-list-item>
+      <mat-list-item [routerLink]="">Menu</mat-list-item>
+      <mat-list-item [routerLink]="">Order</mat-list-item>
+      <mat-list-item [routerLink]="">Contact</mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar class="d-flex justify-content-between position-relative shadow">
+      @if (!isDesktop) {
+        <button mat-icon-button (click)="drawer.toggle()" class="">
+          <svg fill="#ddc5a5" viewBox="0 0 52 52" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path d="M50,12.5H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+              <path d="M50,28H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+              <path d="M50,43.5H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+            </g>
+          </svg>
+        </button>
+      }
+      <img class="h-100" src="https://nhahangvian.com/wp-content/themes/vian/images/nhahangvian-logo.png"
+           alt="Vị An - Cơm ngon tròn vị">
+      <div class="list-page d-none d-lg-flex">
+        <a>Introduce</a>
+        <a>Menu</a>
+        <a>Order</a>
+        <a>Contact</a>
+      </div>
+
+      <div class="d-flex">
+        <div class="menu-profile">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <circle cx="12" cy="6" r="4" stroke="#ffffff" stroke-width="1.5"></circle>
+                <path
+                  d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634"
+                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path>
+              </g>
+            </svg>
+          </button>
+          <mat-menu #menu="matMenu">
+            <a *ngIf="!loading && isAdmin" href="{{ environment.BACKEND_URL + '/admin/dashboard'}}" mat-menu-item>
+              <svg style="height: 24px; width: 24px" xmlns="http://www.w3.org/2000/svg" height="40px"
+                   viewBox="0 -960 960 960" width="40px" fill="#000000">
+                <path
+                  d="M202.56-140q-25.7 0-44.13-18.43Q140-176.86 140-202.56v-554.88q0-25.7 18.43-44.13Q176.86-820 202.56-820h554.88q25.7 0 44.13 18.43Q820-783.14 820-757.44v554.88q0 25.7-18.43 44.13Q783.14-140 757.44-140H202.56Zm212.31-50.26v-264.61H190.26v252.31q0 5.38 3.46 8.84t8.84 3.46h212.31Zm50.26 0h292.31q5.38 0 8.84-3.46t3.46-8.84v-252.31H465.13v264.61ZM190.26-505.13h579.48v-252.31q0-5.38-3.46-8.84t-8.84-3.46H202.56q-5.38 0-8.84 3.46t-3.46 8.84v252.31Z"/>
+              </svg>
+              <span class="ms-2">Dashboard</span>
+            </a>
+            @if (!loading && !isLogin) {
+              <button mat-menu-item [routerLink]="['login']">
+                <svg style="height: 24px; width: 24px" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
+                <span class="ms-2">Login</span>
+              </button>
+            } @else {
+              <button mat-menu-item (click)="logout()">
+                <svg style="height: 24px; width: 24px" xmlns="http://www.w3.org/2000/svg" height="40px"
+                     viewBox="0 -960 960 960" width="40px" fill="#000000">
+                  <path
+                    d="M202.56-140q-25.78 0-44.17-18.39T140-202.56v-554.88q0-25.78 18.39-44.17T202.56-820h277.41v50.26H202.56q-4.61 0-8.46 3.84-3.84 3.85-3.84 8.46v554.88q0 4.61 3.84 8.46 3.85 3.84 8.46 3.84h277.41V-140H202.56Zm459.39-181.54-35.85-35.95 97.39-97.38H363.85v-50.26h358.82l-97.39-97.38 35.59-36.21L820-479.46 661.95-321.54Z"/>
+                </svg>
+                <span class="ms-2">Logout</span>
+              </button>
+            }
+          </mat-menu>
+
+        </div>
+      </div>
+
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

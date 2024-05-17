@@ -1,0 +1,72 @@
+mat-drawer-container {
+  mat-drawer {
+    border: none !important;
+    width: 300px;
+    background: #1C2434;
+
+    mat-list {
+      mat-list-item {
+        span {
+          color: #DEE4EE;
+        }
+        cursor: pointer;
+      }
+    }
+
+    .user-profile {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+
+      img {
+        margin-right: 8px;
+        border-radius: 8px;
+        height: 50px;
+        width: 50px;
+      }
+
+      .user-name {
+        cursor: pointer;
+        font-weight: 500;
+        margin: 0;
+        color: #DEE4EE;
+      }
+
+      button {
+        svg {
+          height: 25px;
+          width: 25px;
+        }
+      }
+    }
+  }
+
+  .mat-drawer-content {
+    height: 100vh;
+
+    mat-toolbar {
+      height: 50px;
+      padding: 9px 8px !important;
+      box-shadow: 0 0.5rem 1rem rgba(110, 69, 59, 0.1), inset 0 -1px 0;
+      background: white;
+
+      .list-page {
+        a {
+          margin-right: 8px;
+          margin-left: 8px;
+          padding-right: 8px;
+          padding-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}

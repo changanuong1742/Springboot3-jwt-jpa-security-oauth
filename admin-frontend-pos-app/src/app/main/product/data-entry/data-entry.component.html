@@ -1,0 +1,62 @@
+<div class="p-4">
+  <form [formGroup]="formData" class="form-data">
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Enter name..." formControlName="name">
+          <mat-error *ngIf="formData.get('name')?.hasError('required')">
+            Name is required
+          </mat-error>
+          <mat-error *ngIf="formData.get('name')?.hasError('unique')">
+            Table name already exists
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput placeholder="Enter price..." formControlName="price">
+          <mat-error *ngIf="formData.get('price')?.hasError('required')">
+            Price is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <ckeditor [editor]="editor" [config]="config" (ready)="onReady($event)" [data]="content"
+                  (change)="onChangeContent($event)"></ckeditor>
+      </div>
+    </div>
+
+    <div class="mb-3 mt-4">
+      <input class="form-control" type="file" id="formFileMultiple" (change)="onSelectFile($event)" multiple>
+    </div>
+
+    @if (urls && urls.length) {
+      <p class="mt-2 p-2 image_list_label mb-0">Images</p>
+      <ol class="list-group list-group-numbered mb-4">
+        <li class="list-group-item d-flex align-items-center"
+            *ngFor="let url of urls; let i = index">
+          <img [src]="environment.MINIO_URL + url" class="image-product rounded-1 ms-2">
+          <span class="ms-2">{{ splitTextFile(url) }}</span>
+
+          <button class="bg-transparent border-0 ms-auto" (click)="removeFile(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+              <path
+                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+            </svg>
+          </button>
+        </li>
+      </ol>
+    }
+
+    @if (listAction.edit || listAction.create) {
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+      </div>
+    }
+  </form>
+</div>

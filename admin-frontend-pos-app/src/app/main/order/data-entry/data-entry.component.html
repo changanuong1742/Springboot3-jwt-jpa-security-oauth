@@ -1,0 +1,141 @@
+<div class="p-4">
+  <form [formGroup]="formData" class="form-data">
+    <mat-form-field class="w-100">
+      <mat-label>Seat</mat-label>
+      <mat-select formControlName="seat_id">
+        <mat-option *ngFor="let seat of seats" [value]="seat.id">{{ seat.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <label class="mb-1">Select status:</label>
+    <div class="mb-4">
+      @if (formData.getRawValue()['status'] == 'PENDING') {
+        <button class="me-1" mat-flat-button color="primary">
+          Pending
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setStatus('PENDING')">Pending</button>
+      }
+      @if (formData.getRawValue()['status'] == 'PROCESSING') {
+        <button class="me-1" mat-flat-button color="primary">
+          Processing
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setStatus('PROCESSING')">Processing</button>
+      }
+      @if (formData.getRawValue()['status'] == 'DONE') {
+        <button class="me-1" mat-flat-button color="primary">
+          Done
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setStatus('DONE')">Done</button>
+      }
+      @if (formData.getRawValue()['status'] == 'CANCEL') {
+        <button class="me-1" mat-flat-button color="primary">
+          Cancel
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setStatus('CANCEL')">Cancel</button>
+      }
+    </div>
+
+    <div class="list-order">
+      <button type="button" class="mb-1" *ngIf="listAction.edit" mat-raised-button (click)="openDialog()">Select product
+      </button>
+
+      @if (orderLines && orderLines.length) {
+        <div *ngFor='let ol of orderLines; let i = index' class="item">
+          <div class="d-flex align-items-center bg-white rounded-1 px-1 mb-1">
+            <img [src]="ol.image" alt=""/>
+            <div>
+              <p class="ms-1 mb-1">Name: {{ ol.name }}</p>
+              <span class="ms-1">Quantity: {{ ol.quantity }} - Price: {{ ol.price }}</span>
+            </div>
+            <button type="button" class="remove-product ms-auto bg-transparent border-0 rounded-1"
+                    (click)="removeProduct(i)">
+              <img src="./assets/images/trash-bin-trash-svgrepo-com.svg" alt="">
+            </button>
+          </div>
+        </div>
+      } @else {
+        <div class="mt-2 text-center mb-2">
+          <img src="./assets/images/empty_search.svg" alt="">
+        </div>
+      }
+    </div>
+
+    <label class="mb-1 mt-2">Select payment status:</label>
+    <div class="mb-4">
+      @if (formData.getRawValue()['payment_status'] == 'HOLD') {
+        <button class="me-1" mat-flat-button color="primary">
+          Hold
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setPaymentStatus('HOLD')">Hold</button>
+      }
+      @if (formData.getRawValue()['payment_status'] == 'FAIL') {
+        <button class="me-1" mat-flat-button color="primary">
+          Fail
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setPaymentStatus('FAIL')">Fail</button>
+      }
+      @if (formData.getRawValue()['payment_status'] == 'SUCCESS') {
+        <button class="me-1" mat-flat-button color="primary">
+          Success
+        </button>
+      } @else {
+        <button class="me-1" mat-stroked-button (click)="setPaymentStatus('SUCCESS')">Success</button>
+      }
+    </div>
+    @if (listAction.edit || listAction.create) {
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" class="me-1" (click)="submit()">Submit</button>
+        <button mat-raised-button color="accent" printSectionId="print-section" ngxPrint>Print</button>
+      </div>
+    }
+
+    <div id="print-section" class="d-none">
+      <div class="card">
+        <div class="card-body mx-4">
+          <div class="container">
+            <p class="my-5 mx-5" style="font-size: 30px;">Thank for your purchase</p>
+            <div class="row">
+              <ul class="list-unstyled">
+                <li class="text-muted mt-1"><span class="text-black">Invoice</span> #{{ editId }}</li>
+              </ul>
+              <hr>
+
+
+              <div style="display: flex" *ngFor="let ol of orderLines">
+                <p>{{ ol.name }}</p>
+
+                <div style="margin-left: auto">
+                  <div class="col-xl-2">
+                    <p class="float-end">Price: ${{ ol.price }}
+                    </p>
+                  </div>
+                  <div class="col-xl-2">
+                    <p class="float-end">Quantity: {{ ol.quantity }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+            </div>
+            <div class="row text-black">
+
+              <div class="col-xl-12">
+                <p class="float-end fw-bold" style="text-align: right">Total: ${{ totalInvoice }}
+                </p>
+              </div>
+              <hr style="border: 2px solid black;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

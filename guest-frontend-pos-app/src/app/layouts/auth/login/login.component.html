@@ -1,0 +1,35 @@
+<form class="p-4" [formGroup]="formData">
+  <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
+
+  <div class="form-floating mb-2">
+    <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+    <label for="email">Email</label>
+  </div>
+  <p class="text-danger" *ngIf="formData.get('email')?.hasError('minlength')">
+    Name must be at least 10 characters long
+  </p>
+  <p class="text-danger" *ngIf="formData.get('email')?.hasError('pattern')">
+    Email invalidate
+  </p>
+  <div class="form-floating mb-2">
+    <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+    <label for="password">Password</label>
+  </div>
+  <p class="text-danger" *ngIf="formData.get('password')?.hasError('minlength')">
+    Password must be at least 10 characters long
+  </p>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary login_btn" type="submit" (click)="submit()">Login</button>
+  <div class="d-flex justify-content-center mt-2">
+    <a [href]="urlLoginGoogle" class="border-0 bg-transparent">
+      <img src="./assets/images/login_with_google.svg" alt="">
+    </a>
+  </div>
+</form>
+
+

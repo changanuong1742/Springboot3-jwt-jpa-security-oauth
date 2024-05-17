@@ -1,0 +1,14 @@
+<div class="p-4">
+  <form [formGroup]="formData" class="mb-2">
+    <div class="d-flex align-items-center">
+      <button mat-raised-button color="primary" [routerLink]="'/admin/product/create'">Create</button>
+
+      <input
+        class="ms-lg-2 form-control ms-2 ms-lg-0 form-control w-100 rounded border border-2 border-light bg-white pe-5 py-2 font-weight-normal text-dark outline-0 transition"
+        type="text" placeholder="Enter name...." (keyup)="searchName()"
+        formControlName="keyword">
+    </div>
+  </form>
+  <app-table [displayedColumns]="displayedColumns" [dataTable]="data" [action]="listAction"
+             (removeRecord)="removeRecord($event)" [nameRoute]="nameRoute"></app-table>
+</div>

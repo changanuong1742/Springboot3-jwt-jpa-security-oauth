@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="dataTable" class="mat-elevation-z8">
+  <!-- Define columns for each property -->
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <th class="text-capitalize" mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    @if (column === 'status') {
+      <td mat-cell *matCellDef="let emp">
+        <span class="badge rounded-pill p-2"
+              [ngClass]="{ 'bg-danger': emp[column] === 'CANCEL', 'bg-success': emp[column] === 'DONE', 'bg-warning': emp[column] === 'PENDING', 'bg-primary': emp[column] === 'PROCESSING',  }">{{ emp[column] }}</span>
+      </td>
+    } @else {
+      <td mat-cell *matCellDef="let emp">{{ emp[column] }}</td>
+    }
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let emp">
+      @if (action['view']) {
+        <button mat-icon-button [routerLink]="['/admin/' + nameRoute + '/detail']" [queryParams]="{ id: emp.id }"><img
+          src="./assets/images/eye-svgrepo-com.svg"/></button>
+      }
+      @if (action['edit']) {
+        <button mat-icon-button [routerLink]="['/admin/' + nameRoute + '/edit']" [queryParams]="{ id: emp.id }"><img
+          src="./assets/images/edit.svg"/></button>
+      }
+      @if (action['delete']) {
+        <button mat-icon-button (click)="removeRecordEmit(emp)"><img
+          src="./assets/images/trash-bin-trash-svgrepo-com.svg"/></button>
+      }
+    </td>
+  </ng-container>
+  <!-- Sử dụng cột mới trong header row -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns.concat('delete')"></tr>
+  <!-- Sử dụng cột mới trong data rows -->
+  <tr
+    mat-row
+    *matRowDef="let emprow; columns: displayedColumns.concat('delete')"
+  ></tr>
+</table>

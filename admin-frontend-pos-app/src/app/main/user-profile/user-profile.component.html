@@ -1,0 +1,176 @@
+<div class="p-4">
+
+  <h1>User profile</h1>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="profile-box demo-tab-group">
+    <mat-tab label="Profile">
+      <div class="card">
+        <!--begin::Card header-->
+        <div class="card-header border-0 cursor-pointer">
+          <!--begin::Card title-->
+          <div class="card-title m-0">
+            <h3 class="fw-bold m-0">Profile Details</h3>
+          </div>
+          <!--end::Card title-->
+        </div>
+        <!--begin::Card header-->
+
+        <!--begin::Content-->
+        <div id="kt_account_settings_profile_details" class="collapse show">
+          <!--begin::Form-->
+          <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
+                [formGroup]="formData"
+                novalidate="novalidate">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+              <!--begin::Input group-->
+              <div class="row mb-3">
+                <!--begin::Label-->
+                <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
+                <!--end::Label-->
+
+                <!--begin::Col-->
+                <app-upload-thumbnail
+                  (onChanged)="onFileChanged($event)"
+                  (onDelete)="onRemoveFile()"
+                  [avatarPreview]="avatarPreview"></app-upload-thumbnail>
+                <!--end::Col-->
+              </div>
+
+              <div class="row mb-2">
+                <!--begin::Label-->
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
+                <!--end::Label-->
+
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                  <!--begin::Row-->
+                  <div class="row">
+                    <!--begin::Col-->
+                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                      <input type="text" name="fname"
+                             class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                             placeholder="Enter first name" formControlName="firstname">
+                      <p class="text-danger"
+                         *ngIf="isConstructorFinished && formData.get('firstname')?.hasError('required')">
+                        First name required
+                      </p>
+                    </div>
+                    <!--end::Col-->
+
+                    <!--begin::Col-->
+                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                      <input type="text" name="lname" class="form-control form-control-lg form-control-solid"
+                             placeholder="Enter last name" formControlName="lastname">
+                      <p class="text-danger"
+                         *ngIf="isConstructorFinished && formData.get('lastname')?.hasError('required')">
+                        First name required
+                      </p>
+                    </div>
+                    <!--end::Col-->
+                  </div>
+                  <!--end::Row-->
+                </div>
+              </div>
+
+
+              <div class="row mb-2">
+                <!--begin::Label-->
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
+                <!--end::Label-->
+
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                  <!--begin::Row-->
+                  <div class="row">
+
+                    <!--begin::Col-->
+                    <div class="col-lg-12 fv-row fv-plugins-icon-container">
+                      <input type="text" name="email" class="form-control form-control-lg form-control-solid"
+                             formControlName="email"
+                             placeholder="Enter email...">
+                      <div
+                        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                    </div>
+
+                    <p class="text-danger" *ngIf="isConstructorFinished && formData.get('email')?.hasError('required')">
+                      Email required
+                    </p>
+                    <p class="text-danger" *ngIf="isConstructorFinished && formData.get('email')?.hasError('pattern')">
+                      Email invalidate
+                    </p>
+                    <!--end::Col-->
+                  </div>
+                  <!--end::Row-->
+                </div>
+              </div>
+
+
+              <div class="row mb-2"
+                   *ngIf="isConstructorFinished && emailChanged && !formData.get('email')?.hasError('pattern') && !formData.get('email')?.hasError('required') && !formData.get('lastname')?.hasError('required') && !formData.get('firstname')?.hasError('required')">
+                <!--begin::Label-->
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Verification code</label>
+                <!--end::Label-->
+
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                  <!--begin::Row-->
+                  <div class="row">
+
+                    <!--begin::Col-->
+                    <div class="col-lg-12 fv-row fv-plugins-icon-container">
+                      <div class="row">
+                        <div class="col-auto">
+                          <input type="text" name="codeVerification"
+                                 class="form-control form-control-lg form-control-solid"
+                                 formControlName="codeVerification"
+                                 placeholder="Enter code...">
+                        </div>
+                        <div class="col-auto d-flex align-items-center">
+
+                          @if (timeWaitSendmail < 120) {
+                            <button type="button" disabled class="btn btn-secondary send-mail-btn">
+                              Wait {{ 120 - timeWaitSendmail }} Second
+                            </button>
+                          } @else {
+                            <button type="submit" class="btn btn-secondary send-mail-btn"
+                                    (click)="onRequestCodeChangeMail()">
+                              Send code
+                            </button>
+                          }
+
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-danger"
+                       *ngIf="isConstructorFinished && formData.get('codeVerification')?.hasError('required')">
+                      Verification code required</p>
+
+                    <!--end::Col-->
+                  </div>
+                  <!--end::Row-->
+                </div>
+              </div>
+
+              <!--end::Card body-->
+
+              <!--begin::Actions-->
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary submit-button"
+                        (click)="updateProfile()">Save Changes
+                </button>
+              </div>
+            </div>
+            <!--end::Actions-->
+          </form>
+          <!--end::Form-->
+        </div>
+        <!--end::Content-->
+      </div>
+    </mat-tab>
+    <mat-tab label="Change password">
+
+      <app-change-password></app-change-password>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

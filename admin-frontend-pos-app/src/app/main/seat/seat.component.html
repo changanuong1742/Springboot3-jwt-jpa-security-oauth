@@ -1,0 +1,43 @@
+<div class="p-4 seat-page">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex align-items-center">
+        @if (listAction.create) {
+          <button mat-raised-button color="primary" [routerLink]="'/admin/seat/create'">Create</button>
+        }
+        <form [formGroup]="formData" class="w-100 ms-lg-2">
+          <input class="ms-2 ms-lg-0 form-control w-100 rounded border border-2 border-light bg-white pe-5 py-2 font-weight-normal text-dark outline-0 transition" type="text" placeholder="Enter name...." (keyup)="searchName()"
+                 formControlName="keyword">
+        </form>
+      </div>
+    </div>
+  </div>
+  @if (data != null) {
+    <div class="row">
+      <div *ngFor="let item of data.content" class="col-6 col-lg-3 px-2">
+        <div class="card">
+          <div class="d-flex justify-content-between">
+            <p>{{ item['name'] }}</p>
+            <p>Slot: 0/12</p>
+          </div>
+          <div class="d-flex justify-content-center">
+            @if (listAction.view) {
+              <button mat-icon-button [routerLink]="'/admin/seat/detail'"
+                      [queryParams]="{ id: item['id'] }"><img
+                src="./assets/images/eye-svgrepo-com.svg"/></button>
+            }
+            @if (listAction.edit) {
+              <button mat-icon-button [routerLink]="'/admin/seat/edit'"
+                      [queryParams]="{ id: item['id'] }"><img
+                src="./assets/images/edit.svg"/></button>
+            }
+            @if (listAction.delete) {
+              <button mat-icon-button (click)="deleteRecord({id: item['id']})"><img
+                src="./assets/images/trash-bin-trash-svgrepo-com.svg"/></button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

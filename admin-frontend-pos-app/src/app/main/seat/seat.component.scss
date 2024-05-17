@@ -1,0 +1,38 @@
+.seat-page {
+  background-color: #F1F5F9;
+  height: 100vh;
+
+  .create-button {
+    background-color: #1C2434;
+    border: none;
+    border-radius: 4px;
+    min-width: fit-content;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .edit-button {
+    background-color: #db960c;
+    border: none;
+    border-radius: 16px;
+    min-width: fit-content;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .delete-button {
+    background-color: #8a0c0c;
+    border: none;
+    border-radius: 16px;
+    min-width: fit-content;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .card {
+    height: 100px;
+    padding: 8px;
+    border-radius: 8px;
+    border-color: #DAD3C3;
+  }
+}

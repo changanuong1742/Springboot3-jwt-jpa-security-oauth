@@ -1,0 +1,22 @@
+<div class="upload-thumbnail">
+  <div class="position-relative preview-box">
+    @if (avatarPreview) {
+      <img class="preview shadow" [src]="avatarPreview" alt="">
+    } @else {
+      <img class="preview shadow" src="./assets/images/user-blank.svg" alt="">
+    }
+    <label class="bg-white icon-action shadow edit-action position-absolute top-0 end-0 rounded-circle"
+           data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar"
+           data-bs-original-title="Change avatar" data-kt-initialized="1">
+      <img src="./assets/images/edit-pen.svg" class="icon-action" alt="">
+      <!--begin::Inputs-->
+      <input type="file" accept=".png, .jpg, .jpeg" (change)="onFileChanged($event)">
+      <!--end::Inputs-->
+    </label>
+    <div class="bg-white shadow delete-action position-absolute bottom-0 end-0 rounded-circle">
+      <img class="icon-action"
+           src="./assets/images/close-icon.svg"
+           alt="" (click)="onRemoveFile()">
+    </div>
+  </div>
+</div>

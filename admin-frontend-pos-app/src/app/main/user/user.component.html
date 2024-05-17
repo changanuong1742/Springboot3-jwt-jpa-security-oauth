@@ -1,0 +1,6 @@
+<div class="p-4">
+  <button class="mb-2" [routerLink]="'/admin/user/create'" mat-raised-button color="primary">Create</button>
+  <app-table [displayedColumns]="displayedColumns" [dataTable]="data" [action]="listAction"
+             (removeRecord)="removeRecord($event)" [nameRoute]="nameRoute"></app-table>
+
+</div>

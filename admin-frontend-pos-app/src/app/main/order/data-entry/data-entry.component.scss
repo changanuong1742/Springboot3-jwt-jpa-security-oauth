@@ -1,0 +1,53 @@
+.dropdown_custom {
+  padding: 8px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+  background: #FFF;
+  border-radius: 4px;
+
+  .form-check {
+    cursor: pointer;
+    padding: 0 !important;
+  }
+}
+
+.image-product {
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+}
+
+.list-order {
+  .item {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}
+
+.add-product {
+  display: flex;
+  align-items: center;
+  background-color: #30A6B6;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+
+  .button-add {
+    margin-right: 4px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.modal-dialog {
+  margin: 0 !important;
+  width: 90% !important;
+}
+
+.remove-product {
+  img {
+    height: 24px !important;
+    width: 24px !important;
+  }
+}

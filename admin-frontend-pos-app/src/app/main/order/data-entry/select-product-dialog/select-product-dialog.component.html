@@ -1,0 +1,49 @@
+<mat-dialog-content>
+  <div class="select-product-box">
+    <div class="mb-3">
+      @if (productSelect != null) {
+        <div class="d-flex align-items-center bg-white rounded-1 px-1 mb-1">
+          <img class="image-product" [src]="environment.MINIO_URL + productSelect.image" alt=""/>
+          <div>
+            <p class="ms-1 mb-1">Name: {{ productSelect.name }}</p>
+            <span class="ms-1">Price: {{ productSelect.price }}</span>
+          </div>
+
+          <div class="ms-auto">
+            <button type="button" class="border-0 bg-transparent" (click)="deleteProduct()">Delete</button>
+          </div>
+
+        </div>
+      } @else {
+        <label for="search_product" class="form-label">Search product</label>
+        <input type="text" class="form-control" id="search_product" (keyup)="filterProducts($event)">
+      }
+    </div>
+    <div *ngIf="searchProduct != ''" class="dropdown_custom">
+      <div class="form-check d-flex align-items-center" *ngFor="let product of filteredProducts" (click)="selectProduct({
+    image: product.images && product.images.length ? product.images[0].fileName : './assets/images/product-found.jpg',
+    name: product.name,
+    price: product.price,
+    id: product.id
+      })">
+        <div> @if (product.images && product.images.length) {
+          <img class="image-product" [src]="environment.MINIO_URL + product.images[0].fileName" alt="">
+        } @else {
+          <img class="image-product" src="./assets/images/product-found.jpg" alt="">
+        }
+          {{ product.name }} - {{ product.price + " VND" }}
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="quantity" class="form-label">Quantity</label>
+      <input type="text" class="form-control" id="quantity" value="1" [(ngModel)]="quantity">
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="submit()" [mat-dialog-close]="this.productSelect" cdkFocusInitial>Ok</button>
+
+</mat-dialog-actions>

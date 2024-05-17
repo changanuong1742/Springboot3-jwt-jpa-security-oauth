@@ -1,0 +1,39 @@
+<form [formGroup]="formData" class="form-data p-4">
+  <mat-form-field appearance="fill" class="w-50">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter name..." formControlName="name">
+    <mat-error *ngIf="formData.get('name')?.hasError('required')">
+      Name is required
+    </mat-error>
+    <mat-error *ngIf="formData.get('name')?.hasError('unique')">
+      Name already exists
+    </mat-error>
+  </mat-form-field>
+
+
+  @if (permissionList && permissionList.length) {
+    <div class="row">
+      <div class="col-md-3 col-12" *ngFor="let p of permissionList">
+
+        <div class="border rounded-2 p-2 mb-2">
+          <p class="text-capitalize">{{ Object.keys(p)[0] }}</p>
+          <div class="list-group">
+            <mat-checkbox *ngFor="let item of p[Object.keys(p)[0]]"
+                          (change)="onCheckboxChangePermission($event, item.id)"
+                          [color]="'primary'"
+                          [value]="item.id"
+                          [checked]="permissionSelected.includes(item.id)"
+            >
+              {{ item.name }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  @if (listAction.edit || listAction.create) {
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+  }
+</form>

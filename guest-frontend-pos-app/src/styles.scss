@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'SFProDisplay';
+  src: url('./assets/fonts/SF-Pro-Display-Medium.woff');
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'SFProDisplay';
+  font-weight: 500
+}

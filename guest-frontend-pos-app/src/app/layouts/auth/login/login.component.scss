@@ -1,0 +1,14 @@
+form {
+  input {
+    background: #ddc5a5;
+  }
+
+  .login_btn {
+    background: #6e453b;
+  }
+}
+.snackBarSuccess{
+  --mdc-snackbar-container-color: #2196f3 !important;
+  --mat-mdc-snack-bar-button-color: #fff !important;
+  --mdc-snackbar-supporting-text-color: #fff !important;
+}

@@ -1,0 +1,30 @@
+mat-drawer-container {
+  mat-drawer {
+    width: 300px;
+    background: #6e453b;
+  }
+
+  .mat-drawer-content {
+    height: 100vh;
+
+    mat-toolbar {
+      padding: 9px 8px !important;
+      background: #6e453b;
+
+      .list-page {
+        a {
+          color: #DDC5A5;
+          margin-right: 8px;
+          margin-left: 8px;
+          padding-right: 8px;
+          padding-left: 8px;
+        }
+      }
+    .menu-profile{
+      mat-menu{
+        width: 300px;
+      }
+    }
+    }
+  }
+}
