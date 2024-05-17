@@ -52,9 +52,9 @@ minio:
   secretKey: Q6menNGqUIpXpfnoUVaqDKd9gXasOmiNd4KMia9s
   bucketName: pos-app
 
-url-frontend-guest: http://localhost/
+url-frontend-guest: http://localhost:4200/
 # http://localhost:4200/ (dev)
 # http://localhost/ (Docker)
-url-frontend-backend: http://localhost/
+url-frontend-backend: http://localhost:54262/
 # http://localhost:54262/ (dev)
 # http://localhost/ (Docker)
