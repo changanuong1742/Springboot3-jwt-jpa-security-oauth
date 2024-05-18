@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="d-flex align-items-center">
         @if (listAction.create) {
-          <button mat-raised-button color="primary" [routerLink]="'/admin/seat/create'">Create</button>
+          <button mat-raised-button color="primary" [routerLink]="'/seat/create'">Create</button>
         }
         <form [formGroup]="formData" class="w-100 ms-lg-2">
           <input class="ms-2 ms-lg-0 form-control w-100 rounded border border-2 border-light bg-white pe-5 py-2 font-weight-normal text-dark outline-0 transition" type="text" placeholder="Enter name...." (keyup)="searchName()"
@@ -22,12 +22,12 @@
           </div>
           <div class="d-flex justify-content-center">
             @if (listAction.view) {
-              <button mat-icon-button [routerLink]="'/admin/seat/detail'"
+              <button mat-icon-button [routerLink]="'seat/detail'"
                       [queryParams]="{ id: item['id'] }"><img
                 src="./assets/images/eye-svgrepo-com.svg"/></button>
             }
             @if (listAction.edit) {
-              <button mat-icon-button [routerLink]="'/admin/seat/edit'"
+              <button mat-icon-button [routerLink]="'seat/edit'"
                       [queryParams]="{ id: item['id'] }"><img
                 src="./assets/images/edit.svg"/></button>
             }

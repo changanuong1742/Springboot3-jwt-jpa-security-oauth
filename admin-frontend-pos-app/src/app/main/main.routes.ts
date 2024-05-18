@@ -10,7 +10,7 @@ import {PermissionGuard} from "../core/guards/permission.guard";
 export const Main_Router: Routes = [
   {
     path: '',
-    redirectTo: 'admin/dashboard',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -27,41 +27,41 @@ export const Main_Router: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'admin/dashboard',
+        path: 'dashboard',
         component: DashboardComponent,
         canActivate: [PermissionGuard],
         data: { roles: ['View seat'] }
       },
       {
-        path: 'admin/profile',
+        path: 'profile',
         component: UserProfileComponent,
       },
       {
-        path: 'admin/seat',
+        path: 'seat',
         loadChildren: () =>
           import('./seat/seat.routes')
             .then(m => m.SEAT_ROUTES)
       },
       {
-        path: 'admin/product',
+        path: 'product',
         loadChildren: () =>
           import('./product/product.routes')
             .then(m => m.PRODUCT_ROUTES)
       },
       {
-        path: 'admin/order',
+        path: 'order',
         loadChildren: () =>
           import('./order/order.routes')
             .then(m => m.ORDER_ROUTES)
       },
       {
-        path: 'admin/user',
+        path: 'user',
         loadChildren: () =>
           import('./user/user.routes')
             .then(m => m.USER_ROUTES)
       },
       {
-        path: 'admin/role',
+        path: 'role',
         loadChildren: () =>
           import('./role/role.routes')
             .then(m => m.ROLE_ROUTES)

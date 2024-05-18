@@ -16,11 +16,11 @@
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let emp">
       @if (action['view']) {
-        <button mat-icon-button [routerLink]="['/admin/' + nameRoute + '/detail']" [queryParams]="{ id: emp.id }"><img
+        <button mat-icon-button [routerLink]="['/' + nameRoute + '/detail']" [queryParams]="{ id: emp.id }"><img
           src="./assets/images/eye-svgrepo-com.svg"/></button>
       }
       @if (action['edit']) {
-        <button mat-icon-button [routerLink]="['/admin/' + nameRoute + '/edit']" [queryParams]="{ id: emp.id }"><img
+        <button mat-icon-button [routerLink]="['/' + nameRoute + '/edit']" [queryParams]="{ id: emp.id }"><img
           src="./assets/images/edit.svg"/></button>
       }
       @if (action['delete']) {

@@ -56,7 +56,7 @@ export class AuthService {
           });
         }
         this.setErrorMessage(null);
-        this.router.navigate(['/']);
+        window.location.href = "/";
       } else {
         this.setErrorMessage(res.error);
         this.cookieService.delete('refreshToken', '/', environment.DOMAIN_COOKIE);

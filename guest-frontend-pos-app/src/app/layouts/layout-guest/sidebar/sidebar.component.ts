@@ -49,13 +49,6 @@ export class SidebarComponent implements OnInit {
     this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]).subscribe(result => {
       this.isDesktop = window.innerWidth >= 1024;
     });
-
-    this._appService.getAuthUserSubject().subscribe((data: any) => {
-      this.isAdmin = this.permissions.length > 0;
-      this.isLogin = true;
-      this.loading = false;
-      console.log(this.permissions.length)
-    });
   }
 
   getUser() {
